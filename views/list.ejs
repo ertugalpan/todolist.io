@@ -1,0 +1,64 @@
+<%# // Include the header partial template file //%>
+<%- include("header") -%>
+
+<%# ///Display the title of the list inside an h1 tag with a class of "box" and an id of "heading" %>
+
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
+
+<%# // Display the items of the list inside a div with a class of "box" %>
+
+
+<div class="box">
+ <%#  // Loop through the items in the "newListItems" array%>
+
+  <% for (var i = 0; i < newListItems.length; i++) { %>
+  <%#   // Create a form to handle deletion of items, with a post action to "/delete" %>
+
+
+  <form action="/delete" method="post">
+      <%#// Display each item as a div with a class of "item"%>
+
+    <div class="item">
+       <%# // Add a checkbox for each item, with its value set to the item's id%>
+
+      <input
+        type="checkbox"
+        name="checkbox"
+        value="<%=newListItems[i]._id%>"
+        onChange="this.form.submit()"
+      />
+     <%#   // Display the name of each item%>
+
+      <p><%= newListItems[i].name %></p>
+    </div>
+     <%# // Add a hidden field to store the list name when the form is submitted%>
+
+    <input type="hidden" name="listName" value="<%= listTitle%>"></input>
+    
+  </form>
+    <%#// End the loop%>
+
+  <% } %>
+    <%#// Create a form for adding new items to the list, with a post action to "/"%>
+
+
+  <form class="item" action="/" method="post">
+    <%#  // Add a text input for the new item's name%>
+
+    <input
+      type="text"
+      name="newItem"
+      placeholder="New Item"
+      autocomplete="off"
+    />
+     <%# // Add a submit button to add the new item to the list%>
+
+    <button type="submit" name="list" value="<%=  listTitle  %>">+</button>
+  </form>
+</div>
+  <%#// Include the footer partial template file%>
+
+<%- include("footer") -%>
+
